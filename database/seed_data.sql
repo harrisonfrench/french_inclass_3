@@ -12,3 +12,16 @@ INSERT INTO sample_table (first_name, last_name, date_of_birth) VALUES
 ('Ashley', 'Wilson', '1993-01-30'),
 ('Matthew', 'Moore', '1989-06-12'),
 ('Jessica', 'Taylor', '1994-04-28');
+
+-- Bears data
+INSERT INTO bears (name, species, age, habitat) VALUES
+('Bruno', 'Grizzly Bear', 12, 'North American Forests'),
+('Frost', 'Polar Bear', 8, 'Arctic Tundra'),
+('Shadow', 'Black Bear', 6, 'Appalachian Mountains'),
+('Bamboo', 'Giant Panda', 10, 'Chinese Bamboo Forests'),
+('Cinnamon', 'Brown Bear', 15, 'Alaskan Wilderness'),
+('Luna', 'Spectacled Bear', 5, 'South American Andes'),
+('Midnight', 'Asian Black Bear', 9, 'Himalayan Forests'),
+('Honey', 'Sun Bear', 4, 'Southeast Asian Rainforest'),
+('Storm', 'Kodiak Bear', 18, 'Kodiak Island Alaska'),
+('Maple', 'Kermode Bear', 7, 'British Columbia Rainforest');

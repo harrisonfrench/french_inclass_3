@@ -8,51 +8,53 @@ def show_examples():
     db = get_db()
     cursor = db.cursor()
 
-    # Handle POST request to add a new example
+    # Handle POST request to add a new bear
     if request.method == 'POST':
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        date_of_birth = request.form['date_of_birth']
+        name = request.form['name']
+        species = request.form['species']
+        age = request.form['age']
+        habitat = request.form['habitat']
 
-        # Insert the new example into the database
-        cursor.execute('INSERT INTO sample_table (first_name, last_name, date_of_birth) VALUES (%s, %s, %s)',
-                       (first_name, last_name, date_of_birth))
+        # Insert the new bear into the database
+        cursor.execute('INSERT INTO bears (name, species, age, habitat) VALUES (%s, %s, %s, %s)',
+                       (name, species, age, habitat))
         db.commit()
 
-        flash('New example added successfully!', 'success')
+        flash('New bear added successfully!', 'success')
         return redirect(url_for('examples.show_examples'))
 
-    # Handle GET request to display all examples
-    cursor.execute('SELECT * FROM sample_table')
-    all_examples = cursor.fetchall()
-    return render_template('examples.html', all_examples=all_examples)
+    # Handle GET request to display all bears
+    cursor.execute('SELECT * FROM bears')
+    all_bears = cursor.fetchall()
+    return render_template('examples.html', all_bears=all_bears)
 
-@examples.route('/update_example/<int:sample_id>', methods=['POST'])
-def update_example(sample_id):
+@examples.route('/update_bear/<int:bear_id>', methods=['POST'])
+def update_bear(bear_id):
     db = get_db()
     cursor = db.cursor()
 
-    # Update the example's details
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    date_of_birth = request.form['date_of_birth']
+    # Update the bear's details
+    name = request.form['name']
+    species = request.form['species']
+    age = request.form['age']
+    habitat = request.form['habitat']
 
-    cursor.execute('UPDATE sample_table SET first_name = %s, last_name = %s, date_of_birth = %s WHERE sample_table_id = %s',
-                   (first_name, last_name, date_of_birth, sample_id))
+    cursor.execute('UPDATE bears SET name = %s, species = %s, age = %s, habitat = %s WHERE bear_id = %s',
+                   (name, species, age, habitat, bear_id))
     db.commit()
 
-    flash('Example updated successfully!', 'success')
+    flash('Bear updated successfully!', 'success')
     return redirect(url_for('examples.show_examples'))
 
-@examples.route('/delete_example/<int:sample_id>', methods=['POST'])
-def delete_example(sample_id):
+@examples.route('/delete_bear/<int:bear_id>', methods=['POST'])
+def delete_bear(bear_id):
     db = get_db()
     cursor = db.cursor()
 
-    # Delete the example
-    cursor.execute('DELETE FROM sample_table WHERE sample_table_id = %s', (sample_id,))
+    # Delete the bear
+    cursor.execute('DELETE FROM bears WHERE bear_id = %s', (bear_id,))
     db.commit()
 
-    flash('Example deleted successfully!', 'danger')
+    flash('Bear deleted successfully!', 'danger')
     return redirect(url_for('examples.show_examples'))
 

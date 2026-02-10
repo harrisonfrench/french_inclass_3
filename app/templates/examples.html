@@ -2,64 +2,70 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Examples</h1>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addExampleModal">
-        Add New Example
+    <h1>Bears</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBearModal">
+        Add New Bear
     </button>
 
-    <!-- Table displaying all examples -->
+    <!-- Table displaying all bears -->
     <table class="table table-striped mt-4">
         <thead>
             <tr>
-                <th>Example ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date of Birth</th>
+                <th>Bear ID</th>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Age</th>
+                <th>Habitat</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for example in all_examples %}
+            {% for bear in all_bears %}
             <tr>
-                <td>{{ example.sample_table_id }}</td>
-                <td>{{ example.first_name }}</td>
-                <td>{{ example.last_name }}</td>
-                <td>{{ example.date_of_birth }}</td>
-                <td>{{ example.created_at }}</td>
-                <td>{{ example.updated_at }}</td>
+                <td>{{ bear.bear_id }}</td>
+                <td>{{ bear.name }}</td>
+                <td>{{ bear.species }}</td>
+                <td>{{ bear.age }}</td>
+                <td>{{ bear.habitat }}</td>
+                <td>{{ bear.created_at }}</td>
+                <td>{{ bear.updated_at }}</td>
                 <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editExampleModal{{ example.sample_table_id }}">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editBearModal{{ bear.bear_id }}">
                         Edit
                     </button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteExampleModal{{ example.sample_table_id }}">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteBearModal{{ bear.bear_id }}">
                         Delete
                     </button>
                 </td>
             </tr>
 
-            <!-- Edit Example Modal -->
-            <div class="modal fade" id="editExampleModal{{ example.sample_table_id }}" tabindex="-1" aria-labelledby="editExampleModalLabel{{ example.sample_table_id }}" aria-hidden="true">
+            <!-- Edit Bear Modal -->
+            <div class="modal fade" id="editBearModal{{ bear.bear_id }}" tabindex="-1" aria-labelledby="editBearModalLabel{{ bear.bear_id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editExampleModalLabel{{ example.sample_table_id }}">Edit Example</h5>
+                            <h5 class="modal-title" id="editBearModalLabel{{ bear.bear_id }}">Edit Bear</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="post" action="{{ url_for('examples.update_example', sample_id=example.sample_table_id) }}">
+                        <form method="post" action="{{ url_for('examples.update_bear', bear_id=bear.bear_id) }}">
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" name="first_name" value="{{ example.first_name }}" required>
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" name="name" value="{{ bear.name }}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" name="last_name" value="{{ example.last_name }}" required>
+                                    <label for="species" class="form-label">Species</label>
+                                    <input type="text" class="form-control" name="species" value="{{ bear.species }}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" name="date_of_birth" value="{{ example.date_of_birth }}" required>
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="number" class="form-control" name="age" value="{{ bear.age }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="habitat" class="form-label">Habitat</label>
+                                    <input type="text" class="form-control" name="habitat" value="{{ bear.habitat }}">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -71,19 +77,19 @@
                 </div>
             </div>
 
-            <!-- Delete Example Modal -->
-            <div class="modal fade" id="deleteExampleModal{{ example.sample_table_id }}" tabindex="-1" aria-labelledby="deleteExampleModalLabel{{ example.sample_table_id }}" aria-hidden="true">
+            <!-- Delete Bear Modal -->
+            <div class="modal fade" id="deleteBearModal{{ bear.bear_id }}" tabindex="-1" aria-labelledby="deleteBearModalLabel{{ bear.bear_id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteExampleModalLabel{{ example.sample_table_id }}">Delete Example</h5>
+                            <h5 class="modal-title" id="deleteBearModalLabel{{ bear.bear_id }}">Delete Bear</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Are you sure you want to delete {{ example.first_name }} {{ example.last_name }}?
+                            Are you sure you want to delete {{ bear.name }} the {{ bear.species }}?
                         </div>
                         <div class="modal-footer">
-                            <form method="post" action="{{ url_for('examples.delete_example', sample_id=example.sample_table_id) }}">
+                            <form method="post" action="{{ url_for('examples.delete_bear', bear_id=bear.bear_id) }}">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
@@ -96,39 +102,39 @@
     </table>
 </div>
 
-<!-- Add Example Modal -->
-<div class="modal fade" id="addExampleModal" tabindex="-1" aria-labelledby="addExampleModalLabel" aria-hidden="true">
+<!-- Add Bear Modal -->
+<div class="modal fade" id="addBearModal" tabindex="-1" aria-labelledby="addBearModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addExampleModalLabel">Add New Example</h5>
+                <h5 class="modal-title" id="addBearModalLabel">Add New Bear</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" action="{{ url_for('examples.show_examples') }}">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="first_name" required>
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" name="last_name" required>
+                        <label for="species" class="form-label">Species</label>
+                        <input type="text" class="form-control" name="species" required>
                     </div>
                     <div class="mb-3">
-                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" name="date_of_birth" required>
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" name="age">
+                    </div>
+                    <div class="mb-3">
+                        <label for="habitat" class="form-label">Habitat</label>
+                        <input type="text" class="form-control" name="habitat">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Example</button>
+                    <button type="submit" class="btn btn-primary">Add Bear</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 {% endblock %}
-
-
-
-
